@@ -1,14 +1,14 @@
 let gameState = {
-    board: [],                  
+
     currentPlayer: 1,           
     gridSize: 3,                
-    winCondition: 3,            
+    winCondition: 3,             
     gameActive: true,           
     player1Symbol: 'X',         
     player2Symbol: 'O',         
-    scores: {                   
+    scores: {                     
         player1: 0,
-        player2: 0,
+        player2: 0, 
         draws: 0
     }
 };
@@ -79,7 +79,7 @@ function createGameBoard() {
 
     for (let row = 0; row < size; row++) {
         for (let col = 0; col < size; col++) {
-            const cell = document.createElement('button');
+            const cell = document.createElement('button');  
             cell.className = 'cell';
             cell.dataset.row = row; 
             cell.dataset.col = col;
@@ -93,7 +93,7 @@ function createGameBoard() {
 
 
 function handleCellClick(row, col) {
-    if (!gameState.gameActive || gameState.board[row][col] !== '') return;
+    if (!gameState.gameActive || gameState.board[row][col] !== '') return;  
 
     const currentSymbol = gameState.currentPlayer === 1 ? 
         gameState.player1Symbol : gameState.player2Symbol;
@@ -121,17 +121,17 @@ function handleCellClick(row, col) {
 }
 
 function checkWinner(row, col) {
-    const symbol = gameState.board[row][col];
-    const k = gameState.winCondition;
+    const symbol = gameState.board[row][col]; 
+    const k = gameState.winCondition; 
     const directions = [
-        [0, 1],   
+        [0, 1],    
         [1, 0],
-        [1, 1],   
+        [1, 1],    
         [1, -1]   
     ];
 
-    for (let [dr, dc] of directions) {
-        let count = 1;
+    for (let [dr, dc] of directions) { 
+        let count = 1; 
 
         
         let r = row + dr, c = col + dc;
@@ -144,7 +144,7 @@ function checkWinner(row, col) {
             count++; r -= dr; c -= dc;
         }
 
-        if (count >= k) return true;
+        if (count >= k) return true;     
     }
     return false; 
 }
@@ -158,14 +158,14 @@ function isBoardFull() {
 function handleGameEnd(type) {
     gameState.gameActive = false;
     if (type === 'win') {
-        updateMessage(`🎉 Joueur ${gameState.currentPlayer} a gagné !`);
+        updateMessage(` Joueur ${gameState.currentPlayer} a gagné !`);
         if (gameState.currentPlayer === 1) {
             gameState.scores.player1++;
         } else {
             gameState.scores.player2++;
         }
     } else if (type === 'draw') {
-        updateMessage("🤝 Match nul !");
+        updateMessage(" Match nul !");
         gameState.scores.draws++;
     }
     updateScoreDisplay();
